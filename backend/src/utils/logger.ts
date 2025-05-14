@@ -22,16 +22,13 @@ export enum LogTypes {
     Debug = 4
 }
 
-
 const LogColors = {
 	[LogTypes.None]: LOGGER_STYLES.reset,
 	[LogTypes.Error]: LOGGER_STYLES.red,
 	[LogTypes.Warning]: LOGGER_STYLES.yellow,
 	[LogTypes.Log]: LOGGER_STYLES.blue,
-	[LogTypes.Debug]: LOGGER_STYLES.green
+	[LogTypes.Debug]: LOGGER_STYLES.green,
 };
-
-
 
 export class Logger {
 	//eslint-disable-next-line @typescript-eslint/no-explicit-any

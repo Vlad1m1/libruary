@@ -3,15 +3,16 @@ import sequelize from '../db';
 
 interface PasswordResetCreationAttributes{
 	userId: string;
-	hash: boolean;
+	hash: string;
 	expiresAt: Date;
 }
 interface PasswordResetAttributes{
 	id: string;
 	userId?: string;
-  	hash: boolean;
+  	hash: string;
 	expiresAt: Date;
 	isUsed: boolean;
+	createdAt?: Date;
 }
 
 export interface PasswordResetInstance
@@ -37,8 +38,6 @@ const PasswordReset = sequelize.define<PasswordResetInstance>('password_reset', 
 		type: DataTypes.BOOLEAN,
 		defaultValue: false,
 	},
-}, {
-	timestamps: false,
 });
 
 export default PasswordReset;

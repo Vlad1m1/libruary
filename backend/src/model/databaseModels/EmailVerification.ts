@@ -3,14 +3,15 @@ import sequelize from '../db';
 
 interface EmailVerificationCreationAttributes{
 	userId: string;
-	hash: boolean;
+	hash: string;
 	expiresAt: Date;
 }
 interface EmailVerificationAttributes{
 	id: string;
 	userId?: string;
-  	hash: boolean;
+  	hash: string;
 	expiresAt: Date;
+	createdAt?: Date;
 }
 
 export interface EmailVerificationInstance
@@ -32,8 +33,6 @@ const EmailVerification = sequelize.define<EmailVerificationInstance>('email_ver
 		type: DataTypes.DATE,
 		allowNull: false,
 	},
-}, {
-	timestamps: false,
 });
 
 export default EmailVerification;

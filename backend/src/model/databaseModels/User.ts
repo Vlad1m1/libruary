@@ -9,7 +9,7 @@ interface UserCreationAttributes{
 	patronymic: string;
 
 }
-interface UserAttributes extends UserCreationAttributes{
+export interface UserAttributes extends UserCreationAttributes{
 	id: string;
 	isVerified: boolean;
 }

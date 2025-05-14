@@ -15,8 +15,8 @@
   "JWT": {
     "ACCESS_SECRET": "REW",
     "REFRESH_SECRET": "REW",
-    "ACCESS_EXPIRES_IN": "5m",
-    "REFRESH_EXPIRES_IN": "12H"
+    "ACCESS_EXPIRES_IN": "15m",
+    "REFRESH_EXPIRES_IN": "30D"
   },
   "SMTP": {
     "HOST": "smtp.gmail.com",

@@ -1,0 +1,37 @@
+import Sequelize from './db';
+import {
+	Token,
+	User,
+	Permission,
+	PermissionToUser,
+	PasswordReset,
+	EmailVerification,
+	Book,
+	Language,
+	File,
+	Image,
+	Genre,
+	BookToGenre,
+	Author,
+	BookToAuthor,
+	Action,
+} from './model';
+
+export {
+	Sequelize,
+	Token,
+	User,
+	Permission,
+	PermissionToUser,
+	PasswordReset,
+	EmailVerification,
+	Book,
+	Language,
+	File,
+	Image,
+	Genre,
+	BookToGenre,
+	Author,
+	BookToAuthor,
+	Action,
+};

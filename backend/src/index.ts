@@ -1,4 +1,5 @@
 import express from 'express';
+import { Sequelize } from './model';
 import cors from 'cors';
 import { initEnv } from './utils/InitEnv';
 import { Logger } from './utils/logger';
@@ -26,6 +27,9 @@ const handleServerStart = () => {
 };
 
 const start  = async () => {
+
+	await Sequelize.authenticate();
+	await Sequelize.sync();
 
 	if(isDev) {
 		app.listen(

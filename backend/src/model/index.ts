@@ -14,7 +14,8 @@ import {
 	BookToGenre,
 	Author,
 	BookToAuthor,
-	Action,
+	Download,
+	Favorite,
 } from './model';
 
 export {
@@ -33,5 +34,6 @@ export {
 	BookToGenre,
 	Author,
 	BookToAuthor,
-	Action,
+	Download,
+	Favorite,
 };

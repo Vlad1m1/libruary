@@ -12,7 +12,8 @@ import Genre from './databaseModels/Genre';
 import BookToGenre from './databaseModels/BookToGenre';
 import Author from './databaseModels/Author';
 import BookToAuthor from './databaseModels/BookToAuthor';
-import Action from './databaseModels/Action';
+import Download from './databaseModels/Download';
+import Favorite from './databaseModels/Favorite';
 
 User.hasMany(Token);
 Token.belongsTo(User);
@@ -80,7 +81,7 @@ Author.belongsTo(Image);
 
 User.belongsToMany(Book, {
 	through: {
-		model: Action,
+		model: Download,
 		unique: false,
 	},
 	foreignKey: 'userId',
@@ -89,7 +90,25 @@ User.belongsToMany(Book, {
 
 Book.belongsToMany(User, {
 	through: {
-		model: Action,
+		model: Download,
+		unique: false,
+	},
+	foreignKey: 'bookId',
+	otherKey: 'userId',
+});
+
+User.belongsToMany(Book, {
+	through: {
+		model: Favorite,
+		unique: false,
+	},
+	foreignKey: 'userId',
+	otherKey: 'bookId',
+});
+
+Book.belongsToMany(User, {
+	through: {
+		model: Favorite,
 		unique: false,
 	},
 	foreignKey: 'bookId',
@@ -111,5 +130,6 @@ export {
 	BookToGenre,
 	Author,
 	BookToAuthor,
-	Action,
+	Download,
+	Favorite,
 };

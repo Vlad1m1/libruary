@@ -1,6 +1,5 @@
 import File from '../model/databaseModels/File';
 import ApiError from '../exceptions/ApiError';
-import { extname } from 'path';
 
 class FileService {
 	isFileMimetype(mimetype: string): boolean {

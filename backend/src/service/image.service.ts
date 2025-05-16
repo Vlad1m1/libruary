@@ -1,6 +1,5 @@
 import Image from '../model/databaseModels/Image';
 import ApiError from '../exceptions/ApiError';
-import { extname } from 'path';
 
 class ImageService {
 	isImageMimetype(mimetype: string): boolean {

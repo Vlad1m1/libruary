@@ -1,11 +1,27 @@
 import { Request, Response, NextFunction } from 'express';
 import imageService from '../service/image.service';
+import path from 'path';
+
+interface MulterFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  destination: string;
+  filename: string;
+  path: string;
+  buffer: Buffer;
+}
 
 class ImageController {
-	async create(req: Request, res: Response, next: NextFunction) {
+	async upload(req: Request & { file?: MulterFile }, res: Response, next: NextFunction) {
 		try {
-			const image = await imageService.createImage(req.body);
-			res.status(201).json(image);
+			if (!req.file) {
+				return res.status(400).json({ error: 'No file uploaded' });
+			}
+			const result = await imageService.createImageFromFile(req.file);
+			res.status(201).json(result);
 		} catch (err) {
 			next(err);
 		}
@@ -23,7 +39,9 @@ class ImageController {
 	async getById(req: Request, res: Response, next: NextFunction) {
 		try {
 			const image = await imageService.getImageById(req.params.id);
-			res.json(image);
+			if (!image) return res.status(404).json({ error: 'Image not found' });
+			const filePath = path.resolve(__dirname, '../../', image.path.replace(/^\//, ''));
+			res.sendFile(filePath);
 		} catch (err) {
 			next(err);
 		}

@@ -1,6 +1,6 @@
 import express from 'express';
 import FileController from '../controller/file.controller';
-import { body, param } from 'express-validator';
+import { param } from 'express-validator';
 import validatorMiddleware from '../middleware/validator.middleware';
 import upload from '../middleware/upload';
 

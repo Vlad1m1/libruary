@@ -64,6 +64,36 @@ export const errors = {
 		description: 'Срок действия кода сброса пароля истек',
 		code: 400,
 	},
+	LANGUAGE_NOT_FOUND: {
+		name: 'LANGUAGE_NOT_FOUND',
+		description: 'Язык не найден',
+		code: 404,
+	},
+	GENRE_NOT_FOUND: {
+		name: 'GENRE_NOT_FOUND',
+		description: 'Жанр не найден',
+		code: 404,
+	},
+	IMAGE_NOT_FOUND: {
+		name: 'IMAGE_NOT_FOUND',
+		description: 'Изображение не найдено',
+		code: 404,
+	},
+	AUTHOR_NOT_FOUND: {
+		name: 'AUTHOR_NOT_FOUND',
+		description: 'Автор не найден',
+		code: 404,
+	},
+	FILE_NOT_FOUND: {
+		name: 'FILE_NOT_FOUND',
+		description: 'Файл не найден',
+		code: 404,
+	},
+	BOOK_NOT_FOUND: {
+		name: 'BOOK_NOT_FOUND',
+		description: 'Книга не найдена',
+		code: 404,
+	},
 };
 
 export type ERROR_KEYS = keyof typeof errors;

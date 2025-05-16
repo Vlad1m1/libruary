@@ -1,21 +1,21 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../db';
 
-interface GenreCreationAttributes {
+interface AuthorCreationAttributes {
 	fullname: string;
 	bio: string;
-}
-
-interface GenreAttributes extends GenreCreationAttributes {
-	id: string;
 	imageId?: string;
 }
 
-export interface GenreInstance
-  extends Model<GenreAttributes, GenreCreationAttributes>,
-	  GenreAttributes {}
+interface AuthorAttributes extends AuthorCreationAttributes {
+	id: string;
+}
 
-const Genre = sequelize.define<GenreInstance>('author', {
+export interface AuthorInstance
+  extends Model<AuthorAttributes, AuthorCreationAttributes>,
+	  AuthorAttributes {}
+
+const Author = sequelize.define<AuthorInstance>('author', {
 	id: {
 		type: DataTypes.UUID,
 		primaryKey: true,
@@ -31,4 +31,4 @@ const Genre = sequelize.define<GenreInstance>('author', {
 	},
 });
 
-export default Genre;
+export default Author;

@@ -5,12 +5,18 @@ interface BookCreationAttributes {
 	title: string;
 	annotation: string;
 	year: number;
+	languageId: string;
+	imageId: string;
+	fileId: string;
 }
 interface BookAttributes{
 	id: string;
 	title: string;
 	annotation: string;
 	year: number;
+	languageId?: string;
+	imageId?: string;
+	fileId?: string;
 	createdAt?: Date;
 	updatedAt?: Date;
 }

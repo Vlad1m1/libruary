@@ -53,21 +53,21 @@ export const subtitle = tv({
 });
 
 export const card = tv({
-	base: "my-2 w-full flex flex-col flex-nowrap"
+  base: "my-2 w-full flex flex-col flex-nowrap",
 });
 
 export const cardTitle = tv({
-	base: "text-2xl font-semibold text-default-900"
+  base: "text-2xl font-semibold text-default-900",
 });
 
 export const cardSubtitle = tv({
-	base: "text-lg font-normal text-default-600"
+  base: "text-lg font-normal text-default-600",
 });
 
 export const cardCharacteristicsTitle = tv({
-	base: "text-sm text-default-500"
+  base: "text-sm text-default-500",
 });
 
 export const cardCharacteristicsValue = tv({
-	base: "text-lg font-medium text-default-900"
+  base: "text-lg font-medium text-default-900",
 });

@@ -39,12 +39,12 @@ const Textbooks = () => {
                 <h3 className="text-lg font-bold">
                   {textbook.name}
                 </h3>
-              </div>	
+              </div>
               <p className="text-sm text-gray-500 mt-1">{textbook.author}</p>
               <Divider className="my-3" />
               <div className="flex gap-2 mt-3">
                 <Badge>{ textbook.year }</Badge>
-								<Badge>{ textbook.pages } с.</Badge>
+				<Badge>{ textbook.pages } с.</Badge>
               </div>
             </CardBody>
             <CardFooter className="flex justify-between">

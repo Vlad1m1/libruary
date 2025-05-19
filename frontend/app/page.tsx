@@ -30,7 +30,7 @@ export default function Home() {
 				</div>
       </div>
 			<div className="w-full color-black flex gap-60">
-				
+			
 			</div>
     </section>
   );

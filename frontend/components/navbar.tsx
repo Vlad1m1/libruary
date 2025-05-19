@@ -15,14 +15,10 @@ import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
-
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { FaUser } from "react-icons/fa";
-import {
-	SearchIcon,
-	Logo,
-} from "@/components/icons";
+import { SearchIcon, Logo } from "@/components/icons";
 
 export const Navbar = () => {
   const searchInput = (
@@ -33,7 +29,7 @@ export const Navbar = () => {
         input: "text-sm",
       }}
       endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
+        <Kbd className="hidden lg:inline-block" keys={["ctrl"]}>
           K
         </Kbd>
       }
@@ -52,7 +48,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">БИБЛИОТЕКА</p>
+            <p className="font-bold text-inherit">История школьного учебника</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -86,11 +82,11 @@ export const Navbar = () => {
             isExternal
             as={Link}
             className="text-sm font-normal text-default-600 bg-default-100"
-            startContent={<FaUser  />}
+            startContent={<FaUser />}
             variant="flat"
           >
-            Войти
-          </Button>
+						Войти
+					</Button>
         </NavbarItem>
       </NavbarContent>
 

@@ -3,7 +3,7 @@
 import React, {useEffect} from "react";
 import {Button, Input, Checkbox, Link, Form, Divider} from "@heroui/react";
 import {Icon} from "@iconify/react";
-import bgImageSrc from '../public/BG_HQ.webp';
+import bgImageSrc from '../public/BG.webp';
 import {Logo} from "@/components/icons";
 
 export default function Component() {

@@ -94,6 +94,11 @@ export const errors = {
 		description: 'Книга не найдена',
 		code: 404,
 	},
+	PERMISSION_DENIED: {
+		name: 'PERMISSION_DENIED',
+		description: 'Недостаточно прав',
+		code: 400,
+	},
 };
 
 export type ERROR_KEYS = keyof typeof errors;

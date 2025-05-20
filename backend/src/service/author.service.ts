@@ -10,6 +10,17 @@ class AuthorService {
 		return await Author.findAll();
 	}
 
+	async searchAuthors(query: string) {
+		return await Author.findAll({
+			where: {
+				fullname: { 
+					// Поиск по ФИО, регистронезависимо
+					[require('sequelize').Op.iLike]: `%${query}%`
+				}
+			}
+		});
+	}
+
 	async getAuthorById(id: string) {
 		const author = await Author.findByPk(id);
 		if (!author) throw ApiError.Custom('AUTHOR_NOT_FOUND');

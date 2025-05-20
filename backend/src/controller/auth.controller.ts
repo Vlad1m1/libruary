@@ -17,7 +17,8 @@ class AuthController {
 			const user = await userService.Create(email, firstname, lastname, patronymic, password);
 			const hash = await userService.generateConfirmHash(user.id);
 
-			const verificationLink = `${ADDRESS}/verify-email/${hash}`;
+			const tempAddress = 'https://reassel.com';
+			const verificationLink = `${tempAddress}/verify-email/${hash}`; //ADDRESS
 			const htmlTemplate = await templateService.getVerificationEmail(verificationLink);
 
 			await mailService.SendMail({

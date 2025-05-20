@@ -1,10 +1,7 @@
-import { Input } from "@heroui/input";
-import { title } from "@/components/primitives";
-import { Button } from "@heroui/button"
-import Auth from "@/components/Auth";
+import RegisterForm from "@/components/RegisterForm";
 
-export default function AuthorizationPage() {
+export default function RegisterPage() {
 	return(
-		<Auth/>
+		<RegisterForm/>
 	);
 }

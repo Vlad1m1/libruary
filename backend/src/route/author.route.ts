@@ -29,7 +29,7 @@ router.post(
 	AuthorController.create,
 );
 
-router.get('/', AuthorController.getAll);
+router.get('/search', AuthorController.search);
 
 router.get(
 	'/:id',

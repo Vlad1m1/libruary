@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import TokenService from '../service/token.service';
 import { Permission, User } from '../model';
 import { UserInstance } from '../model/databaseModels/User';
-// import {TPermissionItem} from '../constants/permissions';
+import { TPermissionItem } from '../constants/permissions';
 
 const INTERMEDIATE_DATA_KEY = 'intermediate';
 
@@ -54,7 +54,7 @@ export const getAuthUser = (req: Request): UserInstance => {
 	return req[INTERMEDIATE_DATA_KEY].user || null;
 };
 
-// export const getUserPermission = (req: Request): TPermissionItem[] => {
-//   // @ts-ignore
-//   return req[INTERMEDIATE_DATA_KEY].permissions || null;
-// }
+export const getUserPermission = (req: Request): TPermissionItem[] => {
+	// @ts-ignore
+	return req[INTERMEDIATE_DATA_KEY].permissions || null;
+};

@@ -9,7 +9,7 @@ import { AuthSlice } from "@/store/reducers/AuthSlice";
 export const API_URL = `${SECURE ? "https" : "http"}://${HOST}:${PORT}`;
 
 const $api = axios.create({
-  withCredentials: true,
+  withCredentials: false,
   baseURL: API_URL,
 });
 

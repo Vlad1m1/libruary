@@ -11,6 +11,16 @@ class AuthorController {
 		}
 	}
 
+	async search(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { query } = req.query;
+			const authors = await authorService.searchAuthors(query as string || '');
+			res.json(authors);
+		} catch (err) {
+			next(err);
+		}
+	}
+
 	async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const authors = await authorService.getAuthors();

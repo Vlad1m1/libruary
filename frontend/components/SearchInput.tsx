@@ -1,53 +1,48 @@
+"use client"
+import {useRouter} from "next/navigation";
+import {FormEvent, useCallback, useState} from "react";
 import {Input} from "@heroui/input";
-import React, {FC, FormEvent} from "react";
 import {SearchIcon} from "@/components/icons";
+import {set} from "react-hook-form";
 
-interface SearchInterface {
-	label?: string;
-	placeholder?: string;
-	onInput?: (e: FormEvent<HTMLInputElement>) => void
-}
 
-const SearchInput:FC<SearchInterface> = (props) => {
+const SearchInput = () => {
 	
-	const {
-		label,
-		placeholder,
-		onInput
-	} = props
-	
+	const router = useRouter();
+	const [query, setQuery] = useState('');
+	const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		router.push('/search?query=' + query);
+	}, [query]);
+
 	return (
-		<Input
-			isClearable
-			classNames={{
-				label: "text-black/50 dark:text-white/90",
-				input: [
-					"text-black/90 dark:text-white/90",
-					"placeholder:text-default-700/50 dark:placeholder:text-white/60",
-				],
-				innerWrapper: "bg-transparent",
-				inputWrapper: [
-					"shadow-xl",
-					"bg-default-200/50",
-					"dark:bg-default/60",
-					"backdrop-blur-xl",
-					"backdrop-saturate-200",
-					"hover:bg-default-200/70",
-					"dark:hover:bg-default/70",
-					"group-data-[focus=true]:bg-default-200/50",
-					"dark:group-data-[focus=true]:bg-default/60",
-					"!cursor-text",
-				],
-			}}
-			label={label}
-			placeholder={placeholder}
-			radius="lg"
-			onInput={onInput}
-			startContent={
-				<SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-			}
-		/>
-	);
+		<form
+			onSubmit={handleSubmit}
+			className="w-full"
+		>
+			<Input
+				name="search"
+				enterKeyHint="search"
+				type="search"
+				aria-label="Search"
+				role="combobox"
+				autoComplete="off"
+				autoCorrect="off"
+				classNames={{
+					inputWrapper: "bg-default-100",
+					input: "text-sm",
+				}}
+				onValueChange={setQuery}
+				labelPlacement="outside"
+				placeholder="Поиск по книгам, авторам, исследованиям и исследовтелям"
+				startContent={
+					<SearchIcon
+						className="text-base text-default-400 pointer-events-none flex-shrink-0"
+					/>
+				}
+			/>
+		</form>
+	)
 }
 
 export default SearchInput;

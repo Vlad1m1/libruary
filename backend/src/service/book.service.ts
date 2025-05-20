@@ -7,8 +7,13 @@ import Author from '../model/databaseModels/Author';
 import File from '../model/databaseModels/File';
 import Language from '../model/databaseModels/Language';
 import Image from '../model/databaseModels/Image';
-import { Transaction } from 'sequelize';
+import { Transaction, Op } from 'sequelize';
 import sequelize from '../model/db';
+import { BookInstance } from '../model/databaseModels/Book';
+import { GenreInstance } from '../model/databaseModels/Genre';
+import { AuthorInstance } from '../model/databaseModels/Author';
+import { BookToGenreInstance } from '../model/databaseModels/BookToGenre';
+import { BookToAuthorInstance } from '../model/databaseModels/BookToAuthor';
 
 interface BookDTO {
   id: string;
@@ -22,7 +27,8 @@ interface BookDTO {
   authors: { id: string; fullname: string; bio: string; imageId?: string }[];
 }
 
-function toBookDTO(book: any, genres: any[], authors: any[]): BookDTO {
+// ВАЖНО: genreId и authorId не определены в BookToGenreInstance/BookToAuthorInstance как поля, но они есть в базе и доступны через .get('genreId')
+function toBookDTO(book: BookInstance, genres: GenreInstance[], authors: AuthorInstance[]): BookDTO {
 	return {
 		id: book.id,
 		title: book.title,
@@ -160,6 +166,67 @@ class BookService {
 			await book.destroy({ transaction: t });
 			return { success: true };
 		});
+	}
+
+	async searchBooks(filters: {
+  query?: string;
+  authorIds?: string[];
+  langIds?: string[];
+  genreIds?: string[];
+  years?: number[];
+}): Promise<BookDTO[]> {
+		const { query, authorIds, langIds, genreIds, years } = filters;
+		const where: Record<string, unknown> = {};
+		if (query) {
+			where.title = { [Op.iLike]: `%${query}%` };
+		}
+		if (langIds && langIds.length > 0) {
+			where.languageId = { [Op.in]: langIds };
+		}
+		if (years && years.length > 0) {
+			where.year = { [Op.in]: years };
+		}
+		let books = await Book.findAll({ where }) as BookInstance[];
+		// Фильтрация по жанрам
+		if (genreIds && genreIds.length > 0) {
+			const bookToGenres = await BookToGenre.findAll() as BookToGenreInstance[];
+			const bookIdsByGenre = bookToGenres
+				.map((bg) => {
+					const genreId = bg.get('genreId') as string | undefined;
+					const bookId = bg.get('bookId') as string | undefined;
+					return genreId && genreIds.includes(genreId) && bookId ? bookId : undefined;
+				})
+				.filter((id): id is string => Boolean(id));
+			books = books.filter((b) => bookIdsByGenre.includes(b.id));
+		}
+		// Фильтрация по авторам
+		if (authorIds && authorIds.length > 0) {
+			const bookToAuthors = await BookToAuthor.findAll() as BookToAuthorInstance[];
+			const bookIdsByAuthor = bookToAuthors
+				.map((ba) => {
+					const authorId = ba.get('authorId') as string | undefined;
+					const bookId = ba.get('bookId') as string | undefined;
+					return authorId && authorIds.includes(authorId) && bookId ? bookId : undefined;
+				})
+				.filter((id): id is string => Boolean(id));
+			books = books.filter((b) => bookIdsByAuthor.includes(b.id));
+		}
+		// Собираем DTO
+		const result: BookDTO[] = [];
+		for (const book of books) {
+			const bookToGenres = await BookToGenre.findAll({ where: { bookId: book.id } }) as BookToGenreInstance[];
+			const genreIdsForBook = bookToGenres.map((bg) => bg.get('genreId') as string | undefined).filter((id): id is string => Boolean(id));
+			const genres = genreIdsForBook.length > 0
+				? await Genre.findAll({ where: { id: genreIdsForBook } }) as GenreInstance[]
+				: [];
+			const bookToAuthors = await BookToAuthor.findAll({ where: { bookId: book.id } }) as BookToAuthorInstance[];
+			const authorIdsForBook = bookToAuthors.map((ba) => ba.get('authorId') as string | undefined).filter((id): id is string => Boolean(id));
+			const authors = authorIdsForBook.length > 0
+				? await Author.findAll({ where: { id: authorIdsForBook } }) as AuthorInstance[]
+				: [];
+			result.push(toBookDTO(book, genres, authors));
+		}
+		return result;
 	}
 }
 

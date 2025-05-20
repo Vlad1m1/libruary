@@ -46,6 +46,33 @@ class BookController {
 			next(err);
 		}
 	}
+
+	async search(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { query, authorIds, langIds, genreIds, years } = req.query;
+			function toStringArray(val: any): string[] | undefined {
+				if (!val) return undefined;
+				if (Array.isArray(val)) return val.map(String);
+				return [String(val)];
+			}
+			function toNumberArray(val: any): number[] | undefined {
+				if (!val) return undefined;
+				if (Array.isArray(val)) return val.map(Number);
+				return [Number(val)];
+			}
+			const filters = {
+				query: query as string,
+				authorIds: toStringArray(authorIds),
+				langIds: toStringArray(langIds),
+				genreIds: toStringArray(genreIds),
+				years: toNumberArray(years),
+			};
+			const books = await bookService.searchBooks(filters);
+			res.json(books);
+		} catch (err) {
+			next(err);
+		}
+	}
 }
 
 export default new BookController();

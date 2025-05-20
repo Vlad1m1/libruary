@@ -21,7 +21,7 @@ router.post(
 	BookController.create,
 );
 
-router.get('/', BookController.getAll);
+router.get('/search', BookController.search);
 
 router.get(
 	'/:id',

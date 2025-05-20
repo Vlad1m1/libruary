@@ -9,7 +9,6 @@ import {
 } from "@heroui/navbar";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
@@ -17,27 +16,11 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { FaUser } from "react-icons/fa";
-import { SearchIcon, Logo } from "@/components/icons";
+import { Logo } from "@/components/icons";
+import React from "react";
+import SearchInput from "@/components/SearchInput";
 
 export const Navbar = () => {
-	const searchInput = (
-		<Input
-			aria-label="Search"
-			classNames={{
-				inputWrapper: "bg-default-100",
-				input: "text-sm",
-			}}
-		 
-			labelPlacement="outside"
-			placeholder="Поиск по книгам, авторам, исследованиям и исследовтелям"
-			startContent={
-				<SearchIcon
-					className="text-base text-default-400 pointer-events-none flex-shrink-0"
-				/>
-			}
-			type="search"
-	/>
-  );
 
   return (
 	<HeroUINavbar
@@ -92,7 +75,7 @@ export const Navbar = () => {
 			<NavbarItem
 				className="hidden lg:flex w-4/5"
 			>
-			{searchInput}
+			<SearchInput/>
 			</NavbarItem>
 		</NavbarContent>
 		<NavbarContent
@@ -112,7 +95,7 @@ export const Navbar = () => {
 					className="text-sm font-normal text-default-600 bg-default-100"
 					startContent={<FaUser />}
 					variant="flat"
-					href="/auth"
+					href="/login"
 				>
 				Войти
 				</Button>
@@ -128,7 +111,7 @@ export const Navbar = () => {
 		</NavbarContent>
 
 		<NavbarMenu>
-			{searchInput}
+			<SearchInput/>
 			<div
 				className="mx-4 mt-2 flex flex-col gap-2"
 			>

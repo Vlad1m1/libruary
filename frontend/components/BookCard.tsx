@@ -6,7 +6,7 @@ import {Badge} from "@heroui/badge";
 import {Link} from "@heroui/link";
 import {Button} from "@heroui/button";
 
-export interface IBook {
+export interface IBookCard {
 	id: string;
 	title: string;
 	author: string;
@@ -14,7 +14,7 @@ export interface IBook {
 }
 
 interface OwnProps {
-	book: IBook;
+	book: IBookCard;
 	
 }
 

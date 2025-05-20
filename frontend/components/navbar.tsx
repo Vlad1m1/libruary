@@ -108,11 +108,11 @@ export const Navbar = () => {
 				className="hidden md:flex"
 			>
 				<Button
-					isExternal
 					as={Link}
 					className="text-sm font-normal text-default-600 bg-default-100"
 					startContent={<FaUser />}
 					variant="flat"
+					href="/auth"
 				>
 				Войти
 				</Button>

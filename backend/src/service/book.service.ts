@@ -184,7 +184,11 @@ class BookService {
 			where.languageId = { [Op.in]: langIds };
 		}
 		if (years && years.length > 0) {
-			where.year = { [Op.in]: years };
+			if (years.length === 1) {
+				where.year = years[0];
+			} else if (years.length === 2) {
+				where.year = { [Op.between]: [Math.min(years[0], years[1]), Math.max(years[0], years[1])] };
+			}
 		}
 		let books = await Book.findAll({ where }) as BookInstance[];
 		// Фильтрация по жанрам

@@ -1,4 +1,4 @@
-import React, {Dispatch, FC, FormEvent, SetStateAction, useEffect, useState} from 'react';
+import React, {Dispatch, FC, SetStateAction, useEffect, useState} from 'react';
 import {Select, SelectItem} from "@heroui/select";
 import {Autocomplete, AutocompleteItem, Avatar} from '@heroui/react';
 import {ILanguage} from "@/types/api/ILanguage";
@@ -7,14 +7,15 @@ import GenreService from "@/service/GenreService";
 import {IGenre} from "@/types/api/IGenre";
 import {IAuthor} from "@/types/api/IAuthor";
 import AuthorService from "@/service/AuthorService";
-import {Button} from "@heroui/button";
 import ImageService from "@/service/ImageService";
 import Link from "next/link";
 import useThrottle from "@/hooks/useThrottle";
+import {useAppSelector} from "@/hooks/redux";
 
 interface Filters {
 	lang: Set<string>;
-	genre: Set<string>
+	genre: Set<string>;
+	author: Set<string>;
 }
 
 interface OwnProps {
@@ -28,7 +29,9 @@ const Filters:FC<OwnProps> = (props) => {
 		setFilters
 	} = props;
 	
-	const [languages, setLanguages] = React.useState<ILanguage[]>([]);
+	const languages = useAppSelector(state => state.languagesReducer)
+	
+	const getLanguages = LanguageService.getLanguages();
 	const [genres, setGenres] = React.useState<IGenre[]>([]);
 	const [authors, setAuthors] = React.useState<IAuthor[]>([]);
 	
@@ -39,16 +42,12 @@ const Filters:FC<OwnProps> = (props) => {
 	})
 	
 	useEffect(() => {
-		LanguageService.get().then((data) => {
-			setLanguages(data.data);
-			setLoad(state => ({...state, lang: false}));
-		});
+		getLanguages(true).then(() => setLoad(state => ({...state, lang: false})));
 		
 		GenreService.get().then((data) => {
 			setGenres(data.data);
 			setLoad(state => ({...state, genre: false}));
 		});
-		
 		
 	}, [])
 	
@@ -58,6 +57,10 @@ const Filters:FC<OwnProps> = (props) => {
 	
 	const handleSetGenreFilter = (newSelection: Set<string>) => {
 		setFilters((filters => ({...filters, genre: newSelection})))
+	}
+	
+	const handleSetAuthorFilter = (newSelection: Set<string>) => {
+		setFilters((filters => ({...filters, author: newSelection || new Set()})));
 	}
 	
 	const handleAuthorsSearch = (value: string) => {
@@ -140,6 +143,7 @@ const Filters:FC<OwnProps> = (props) => {
 				label="Автор"
 				onInputChange={trottledAuthorSearch}
 				isLoading={load.author}
+				onSelectionChange={handleSetAuthorFilter}
 			>
 				{(item) => (
 					<AutocompleteItem key={item.id} textValue={item.fullname}>

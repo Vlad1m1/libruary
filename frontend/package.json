@@ -26,6 +26,7 @@
     "@heroui/switch": "2.2.17",
     "@heroui/system": "2.4.15",
     "@heroui/table": "^2.2.18",
+    "@heroui/tabs": "^2.2.16",
     "@heroui/theme": "2.4.15",
     "@iconify/react": "^6.0.0",
     "@react-aria/ssr": "3.9.8",
@@ -40,7 +41,8 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.56.4",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@eslint/compat": "1.2.8",

@@ -1,10 +1,5 @@
 import React, {FC} from 'react';
 import {Image} from "@heroui/image";
-import {Divider} from "@heroui/divider";
-import {Card, CardBody, CardFooter, CardHeader} from "@heroui/card";
-import {Badge} from "@heroui/badge";
-import {Link} from "@heroui/link";
-import {Button} from "@heroui/button";
 
 export interface IBookCard {
 	id: string;

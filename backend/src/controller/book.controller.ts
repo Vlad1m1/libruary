@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import bookService from '../service/book.service';
+import { toStringArray } from '../utils/toStringArray';
+import { toNumberArray } from '../utils/toNumberArray';
 
 class BookController {
 	async create(req: Request, res: Response, next: NextFunction) {
@@ -50,23 +52,15 @@ class BookController {
 	async search(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { query, authorIds, langIds, genreIds, years } = req.query;
-			function toStringArray(val: any): string[] | undefined {
-				if (!val) return undefined;
-				if (Array.isArray(val)) return val.map(String);
-				return [String(val)];
-			}
-			function toNumberArray(val: any): number[] | undefined {
-				if (!val) return undefined;
-				if (Array.isArray(val)) return val.map(Number);
-				return [Number(val)];
-			}
+
 			const filters = {
 				query: query as string,
-				authorIds: toStringArray(authorIds),
-				langIds: toStringArray(langIds),
-				genreIds: toStringArray(genreIds),
-				years: toNumberArray(years),
+				authorIds: toStringArray(authorIds as string || ''),
+				langIds: toStringArray(langIds as string || ''),
+				genreIds: toStringArray(genreIds as string || ''),
+				years: toNumberArray(years as string || ''),
 			};
+
 			const books = await bookService.searchBooks(filters);
 			res.json(books);
 		} catch (err) {

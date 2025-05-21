@@ -18,15 +18,23 @@ export default function SearchPage() {
 	const [filters, setFilters] = useState<Filters>({
 		lang: new Set(),
 		genre: new Set(),
+		author: new Set(),
 	})
 	
 	useEffect(() => {
 		if(!query) return;
-		
-		BookService.search(query).then(data => {
+		console.log('filters', filters);
+		BookService.search(
+			{
+				query: query,
+				langIds: Array.from(filters.lang),
+				authorIds: Array.from(filters.author),
+				genreIds: Array.from(filters.genre)
+			}
+			).then(data => {
 			setBooks(data.data);
-		})
-	}, [query]);
+		});
+	}, [query, filters]);
 	
 	return (
 		<>

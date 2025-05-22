@@ -1,12 +1,23 @@
 import { title, subtitle } from "../../../components/primitives";
+import { Card, CardBody } from "@heroui/card"
 import {useTranslations} from "next-intl";
+
+import bgImageSrc1 from "@/public/DSC_1961.webp"
 
 export default function AboutPage() {
 	const t = useTranslations()
   return (
     <div>
-      <h1 className={`${title()} flex flex-col text-center items-center justify-center gap-4 py-8 md:py-10`}>О Ресурсе</h1>{t('lang')}
-			<p className="text-center"> Настоящий ресурс представляет собой 	полнотекстовую базу данных документов 		двух типов: цифровые копии учебных 	пособий и публикации 	результатов их 		исследований. Материалы 	систематизированы по странам и 	хронологии издания, 		авторам / 	составителям. В основу положена 	коллекция Виталия Григорьевича 		Безрогова 	(1959-2019). </p>
+			<Card isHoverable className="relative overflow-hidden h-[400] w-full bg-no-repeat bg-cover bg-center" style={{backgroundImage: `url(${bgImageSrc1.src})`}}>
+				<CardBody>
+					<h1
+					className={`${title()} text-white text-center gplace-items-center h-[400] w-full mt-[170]`}
+					>
+					О ресурсе
+					</h1>
+				</CardBody>
+			</Card>
+			<p className="text-center mt-10"> Настоящий ресурс представляет собой 	полнотекстовую базу данных документов 		двух типов: цифровые копии учебных 	пособий и публикации 	результатов их 		исследований. Материалы 	систематизированы по странам и 	хронологии издания, 		авторам / 	составителям. В основу положена 	коллекция Виталия Григорьевича 		Безрогова 	(1959-2019). </p>
 			<h1 className={`${title()} flex flex-col text-center items-center justify-center gap-4 py-8 md:py-10`}>Почему учебник?</h1>
 			<p className="text-center">Заурядное явление, обыденное и повседневное, привычный атрибут школьных лет – так выглядит учебник в бытовом сознании. Однако это сложный социокультурный феномен, квинтэссенция культуры, отражение социального и научного опыта, накопленного человечеством. Пособие для обучения детей – «канал передачи» этого опыта от поколения к поколению, своеобразный перекресток культурных потоков, источник знаний ребенка о мире и, вместе с тем, «взрослых» знаний о культуре предшествующих эпох.</p>
 			<h1 className={`${title()} flex flex-col text-center items-center justify-center gap-4 py-8 md:py-10`}>Зачем изучать?</h1>

@@ -8,6 +8,7 @@ import {
   cardCharacteristicsTitle,
   cardCharacteristicsValue,
 } from "@/components/primitives";
+import testBookImage from "@/public/BookpageTestImage.webp"
 
 export default function BookPage() {
   // Данные книги
@@ -31,7 +32,7 @@ export default function BookPage() {
             <Image
               alt={book.title}
               className="border-solid border-2 border-gray-300"
-              src="https://heroui.com/images/hero-card-complete.jpeg"
+              src={testBookImage.src}
 							width={500}
             />
           </div>
